@@ -37,22 +37,15 @@ export default function Dashboard() {
                 </button>
             </div>
 
-            {/* Mobile-friendly Tab Navigation */}
-            <div className="flex overflow-x-auto gap-2 mb-6 pb-2 border-b border-gray-200" style={{ scrollbarWidth: 'none' }}>
+            {/* Modern Tab Navigation */}
+            <div className="tab-nav mb-8">
                 {tabs.map(tab => {
                     if (tab.adminOnly && session?.user?.role !== 'ADMIN') return null
                     return (
                         <button
                             key={tab.id}
                             onClick={() => setActiveTab(tab.id)}
-                            className={`px-4 py-2 rounded-lg whitespace-nowrap transition-colors ${activeTab === tab.id
-                                ? 'bg-blue-600 text-white font-medium'
-                                : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
-                                }`}
-                            style={{
-                                background: activeTab === tab.id ? 'var(--primary)' : 'rgba(255,255,255,0.5)',
-                                color: activeTab === tab.id ? 'white' : 'inherit',
-                            }}
+                            className={`tab-btn ${activeTab === tab.id ? 'active' : ''}`}
                         >
                             {tab.label}
                         </button>
