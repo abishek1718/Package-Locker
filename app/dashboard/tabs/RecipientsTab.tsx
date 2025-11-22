@@ -93,9 +93,9 @@ export default function RecipientsTab() {
     return (
         <div className="grid gap-8">
             {/* Action Forms */}
-            <div className="grid md:grid-cols-2 gap-6">
+            <div className="grid md:grid-cols-2 gap-6" style={{ marginTop: '1rem' }}>
                 {/* Add Single Recipient */}
-                <div className="glass-card p-6">
+                <div className="glass-card p-4 md:p-6">
                     <h2 className="text-xl font-bold mb-6">Add New Recipient</h2>
                     <form onSubmit={handleAddRecipient} className="grid gap-4">
                         <input
@@ -113,14 +113,14 @@ export default function RecipientsTab() {
                             onChange={e => setNewRecipient({ ...newRecipient, email: e.target.value })}
                             required
                         />
-                        <button type="submit" className="btn btn-primary w-full md:w-auto" disabled={addingRecipient}>
+                        <button type="submit" className="btn btn-primary w-full" disabled={addingRecipient}>
                             {addingRecipient ? 'Adding...' : 'Add Recipient'}
                         </button>
                     </form>
                 </div>
 
                 {/* Bulk CSV Upload */}
-                <div className="glass-card p-6">
+                <div className="glass-card p-4 md:p-6">
                     <h2 className="text-xl font-bold mb-4">Bulk Import Recipients</h2>
                     <p className="text-sm" style={{ color: 'var(--foreground)', opacity: 0.7, marginBottom: '1rem' }}>
                         Upload a CSV file with columns: <strong>Name, Email</strong>
@@ -133,7 +133,7 @@ export default function RecipientsTab() {
                             onChange={e => setCsvFile(e.target.files?.[0] || null)}
                             required
                         />
-                        <button type="submit" className="btn btn-primary w-full md:w-auto" disabled={uploadingCsv || !csvFile}>
+                        <button type="submit" className="btn btn-primary w-full" disabled={uploadingCsv || !csvFile}>
                             {uploadingCsv ? 'Uploading...' : 'Upload CSV'}
                         </button>
                     </form>
@@ -141,9 +141,9 @@ export default function RecipientsTab() {
             </div>
 
             {/* Recipients List */}
-            <div>
-                <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-4">
-                    <h2 className="text-xl font-bold">Recipient Directory</h2>
+            <div style={{ marginTop: '2rem' }}>
+                <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-6">
+                    <h2 className="text-xl font-bold" style={{ whiteSpace: 'nowrap' }}>Recipient Directory</h2>
                     <input
                         type="text"
                         placeholder="Search recipients..."
@@ -151,6 +151,11 @@ export default function RecipientsTab() {
                         value={searchTerm}
                         onChange={e => setSearchTerm(e.target.value)}
                     />
+                </div>
+
+                {/* Mobile slide hint */}
+                <div className="block md:hidden text-sm" style={{ color: 'var(--foreground)', opacity: 0.6, textAlign: 'center', padding: '0.5rem', marginBottom: '0.5rem' }}>
+                    ← Slide to see more details →
                 </div>
 
                 <div className="glass-card overflow-hidden">

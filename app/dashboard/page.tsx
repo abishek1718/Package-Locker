@@ -39,7 +39,7 @@ export default function Dashboard() {
             </div>
 
             {/* Modern Tab Navigation */}
-            <div className="tab-nav mb-8 overflow-x-auto p-2 gap-4 bg-gray-50/50 rounded-2xl border border-gray-100" style={{ scrollbarWidth: 'thin' }}>
+            <div className="tab-nav mb-12 overflow-x-auto p-2 gap-4 bg-gray-50/50 rounded-2xl border border-gray-100" style={{ scrollbarWidth: 'thin' }}>
                 {tabs.map(tab => {
                     if (tab.adminOnly && session?.user?.role !== 'ADMIN') return null
                     return (

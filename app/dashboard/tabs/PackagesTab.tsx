@@ -105,8 +105,8 @@ export default function PackagesTab() {
                 </button>
             </div>
 
-            {/* Mobile hint */}
-            <div className="md:hidden text-sm" style={{ color: 'var(--foreground)', opacity: 0.6, textAlign: 'center', padding: '0.5rem' }}>
+            {/* Mobile hint - only visible on mobile */}
+            <div className="block md:hidden text-sm" style={{ color: 'var(--foreground)', opacity: 0.6, textAlign: 'center', padding: '0.5rem' }}>
                 ← Slide to see more details →
             </div>
 
@@ -165,7 +165,7 @@ export default function PackagesTab() {
                                             onMouseOver={(e) => e.currentTarget.style.transform = 'translateY(-1px)'}
                                             onMouseOut={(e) => e.currentTarget.style.transform = 'translateY(0)'}
                                         >
-                                            {visiblePins.has(pkg.id) ? pkg.pin : '👁️ Show PIN'}
+                                            {visiblePins.has(pkg.id) ? pkg.pin : 'Show PIN'}
                                         </button>
                                     </td>
                                     <td style={{ padding: '1rem', borderRight: '1px solid var(--border)' }}>
@@ -186,7 +186,7 @@ export default function PackagesTab() {
                                                 borderRadius: '9999px',
                                                 background: pkg.status === 'PENDING' ? '#f59e0b' : '#10b981'
                                             }}></span>
-                                            {pkg.status}
+                                            {pkg.status === 'PICKED_UP' ? 'Picked Up' : pkg.status}
                                         </span>
                                     </td>
                                     <td style={{ padding: '1rem', fontSize: '0.75rem', color: 'var(--foreground)', opacity: 0.7, borderRight: '1px solid var(--border)' }}>
@@ -220,7 +220,7 @@ export default function PackagesTab() {
                                                     e.currentTarget.style.boxShadow = '0 2px 8px rgba(16, 185, 129, 0.3)'
                                                 }}
                                             >
-                                                ✓ Mark Picked Up
+                                                Mark Picked Up
                                             </button>
                                         )}
                                     </td>

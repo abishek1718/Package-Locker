@@ -73,7 +73,7 @@ export default function StaffTab() {
     return (
         <div className="grid gap-8">
             {/* Add Staff Form */}
-            <div className="glass-card p-6 max-w-2xl mx-auto w-full">
+            <div className="glass-card p-4 md:p-6 max-w-2xl mx-auto w-full" style={{ marginTop: '1rem' }}>
                 <h2 className="text-xl font-bold mb-6">Add New Staff Member</h2>
                 <form onSubmit={handleAddUser} className="grid gap-4">
                     <div className="grid md:grid-cols-2 gap-4">
@@ -111,7 +111,7 @@ export default function StaffTab() {
                             <option value="ADMIN">Admin</option>
                         </select>
                     </div>
-                    <button type="submit" className="btn btn-primary w-full md:w-auto" disabled={addingUser}>
+                    <button type="submit" className="btn btn-primary w-full" disabled={addingUser}>
                         {addingUser ? 'Adding...' : 'Add Staff Member'}
                     </button>
                 </form>
@@ -120,6 +120,12 @@ export default function StaffTab() {
             {/* Staff List */}
             <div>
                 <h2 className="text-xl font-bold mb-4">Staff Directory</h2>
+
+                {/* Mobile slide hint */}
+                <div className="block md:hidden text-sm" style={{ color: 'var(--foreground)', opacity: 0.6, textAlign: 'center', padding: '0.5rem', marginBottom: '0.5rem' }}>
+                    ← Slide to see more details →
+                </div>
+
                 <div className="glass-card overflow-hidden">
                     <div className="overflow-x-auto">
                         <table className="w-full" style={{ borderCollapse: 'separate', borderSpacing: 0 }}>
