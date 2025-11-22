@@ -1,5 +1,4 @@
 'use client'
-'use client'
 
 import { useEffect, useState } from 'react'
 
@@ -75,7 +74,7 @@ export default function StaffTab() {
         <div className="grid gap-8">
             {/* Add Staff Form */}
             <div className="glass-card p-6 max-w-2xl mx-auto w-full">
-                <h2 className="text-xl font-bold mb-4">Add New Staff Member</h2>
+                <h2 className="text-xl font-bold mb-6">Add New Staff Member</h2>
                 <form onSubmit={handleAddUser} className="grid gap-4">
                     <div className="grid md:grid-cols-2 gap-4">
                         <input
@@ -123,36 +122,61 @@ export default function StaffTab() {
                 <h2 className="text-xl font-bold mb-4">Staff Directory</h2>
                 <div className="glass-card overflow-hidden">
                     <div className="overflow-x-auto">
-                        <table className="w-full border-collapse">
+                        <table className="w-full" style={{ borderCollapse: 'separate', borderSpacing: 0 }}>
                             <thead>
-                                <tr className="text-left border-b border-gray-200 bg-gray-50">
-                                    <th className="p-4 font-semibold text-gray-600">Name</th>
-                                    <th className="p-4 font-semibold text-gray-600">Email</th>
-                                    <th className="p-4 font-semibold text-gray-600">Role</th>
-                                    <th className="p-4 font-semibold text-gray-600">Joined</th>
-                                    <th className="p-4 font-semibold text-gray-600">Actions</th>
+                                <tr style={{ background: 'var(--surface)', borderBottom: '2px solid var(--border)' }}>
+                                    <th style={{ padding: '1rem', fontWeight: 600, textAlign: 'left', color: 'var(--foreground)', opacity: 0.7, borderRight: '1px solid var(--border)' }}>Name</th>
+                                    <th style={{ padding: '1rem', fontWeight: 600, textAlign: 'left', color: 'var(--foreground)', opacity: 0.7, borderRight: '1px solid var(--border)' }}>Email</th>
+                                    <th style={{ padding: '1rem', fontWeight: 600, textAlign: 'left', color: 'var(--foreground)', opacity: 0.7, borderRight: '1px solid var(--border)' }}>Role</th>
+                                    <th style={{ padding: '1rem', fontWeight: 600, textAlign: 'left', color: 'var(--foreground)', opacity: 0.7, borderRight: '1px solid var(--border)' }}>Joined</th>
+                                    <th style={{ padding: '1rem', fontWeight: 600, textAlign: 'left', color: 'var(--foreground)', opacity: 0.7 }}>Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 {loading ? (
                                     <tr><td colSpan={5} className="p-8 text-center">Loading...</td></tr>
                                 ) : users.map(user => (
-                                    <tr key={user.id} className="border-b border-gray-100 hover:bg-gray-50 transition-colors">
-                                        <td className="p-4 font-medium">{user.name}</td>
-                                        <td className="p-4 text-gray-600">{user.email}</td>
-                                        <td className="p-4">
-                                            <span className={`px-2 py-1 rounded-full text-xs font-bold ${user.role === 'ADMIN' ? 'bg-purple-100 text-purple-800' : 'bg-blue-100 text-blue-800'
-                                                }`}>
+                                    <tr key={user.id} style={{ borderBottom: '1px solid var(--border)', transition: 'background 0.2s' }} className="hover:bg-gray-50">
+                                        <td style={{ padding: '1rem', fontWeight: 500, color: 'var(--foreground)', borderRight: '1px solid var(--border)' }}>{user.name}</td>
+                                        <td style={{ padding: '1rem', color: 'var(--foreground)', opacity: 0.7, borderRight: '1px solid var(--border)' }}>{user.email}</td>
+                                        <td style={{ padding: '1rem', borderRight: '1px solid var(--border)' }}>
+                                            <span style={{
+                                                padding: '0.375rem 0.625rem',
+                                                borderRadius: '9999px',
+                                                fontSize: '0.75rem',
+                                                fontWeight: 'bold',
+                                                background: user.role === 'ADMIN' ? '#f3e8ff' : '#dbeafe',
+                                                color: user.role === 'ADMIN' ? '#6b21a8' : '#1e40af'
+                                            }}>
                                                 {user.role}
                                             </span>
                                         </td>
-                                        <td className="p-4 text-sm text-gray-500">{new Date(user.createdAt).toLocaleDateString()}</td>
-                                        <td className="p-4">
+                                        <td style={{ padding: '1rem', fontSize: '0.875rem', color: 'var(--foreground)', opacity: 0.6, borderRight: '1px solid var(--border)' }}>{new Date(user.createdAt).toLocaleDateString()}</td>
+                                        <td style={{ padding: '1rem' }}>
                                             <button
                                                 onClick={() => handleDeleteUser(user.id)}
-                                                className="text-xs bg-red-100 text-red-600 px-3 py-1 rounded hover:bg-red-200 transition-colors"
+                                                style={{
+                                                    fontSize: '0.75rem',
+                                                    background: 'linear-gradient(135deg, #ef4444, #dc2626)',
+                                                    color: 'white',
+                                                    padding: '0.5rem 1rem',
+                                                    borderRadius: '0.5rem',
+                                                    border: 'none',
+                                                    fontWeight: 600,
+                                                    cursor: 'pointer',
+                                                    transition: 'all 0.2s',
+                                                    boxShadow: '0 2px 8px rgba(239, 68, 68, 0.3)'
+                                                }}
+                                                onMouseOver={(e) => {
+                                                    e.currentTarget.style.transform = 'translateY(-2px)'
+                                                    e.currentTarget.style.boxShadow = '0 4px 12px rgba(239, 68, 68, 0.4)'
+                                                }}
+                                                onMouseOut={(e) => {
+                                                    e.currentTarget.style.transform = 'translateY(0)'
+                                                    e.currentTarget.style.boxShadow = '0 2px 8px rgba(239, 68, 68, 0.3)'
+                                                }}
                                             >
-                                                Delete
+                                                🗑️ Delete
                                             </button>
                                         </td>
                                     </tr>

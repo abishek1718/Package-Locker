@@ -105,25 +105,30 @@ export default function PackagesTab() {
                 </button>
             </div>
 
+            {/* Mobile hint */}
+            <div className="md:hidden text-sm" style={{ color: 'var(--foreground)', opacity: 0.6, textAlign: 'center', padding: '0.5rem' }}>
+                ← Slide to see more details →
+            </div>
+
             {/* Packages List */}
             <div className="glass-card overflow-hidden">
                 <div className="overflow-x-auto">
-                    <table className="w-full border-collapse">
+                    <table className="w-full" style={{ borderCollapse: 'separate', borderSpacing: 0 }}>
                         <thead>
-                            <tr className="text-left border-b border-gray-200 bg-gray-50">
-                                <th className="p-4 font-semibold text-gray-600">Photo</th>
-                                <th className="p-4 font-semibold text-gray-600">Recipient</th>
-                                <th className="p-4 font-semibold text-gray-600">Locker</th>
-                                <th className="p-4 font-semibold text-gray-600">PIN</th>
-                                <th className="p-4 font-semibold text-gray-600">Status</th>
-                                <th className="p-4 font-semibold text-gray-600">Time Log</th>
-                                <th className="p-4 font-semibold text-gray-600">Actions</th>
+                            <tr style={{ background: 'var(--surface)', borderBottom: '2px solid var(--border)' }}>
+                                <th style={{ padding: '1rem', fontWeight: 600, textAlign: 'left', color: 'var(--foreground)', opacity: 0.7, borderRight: '1px solid var(--border)' }}>Photo</th>
+                                <th style={{ padding: '1rem', fontWeight: 600, textAlign: 'left', color: 'var(--foreground)', opacity: 0.7, borderRight: '1px solid var(--border)' }}>Recipient</th>
+                                <th style={{ padding: '1rem', fontWeight: 600, textAlign: 'left', color: 'var(--foreground)', opacity: 0.7, borderRight: '1px solid var(--border)' }}>Locker</th>
+                                <th style={{ padding: '1rem', fontWeight: 600, textAlign: 'left', color: 'var(--foreground)', opacity: 0.7, borderRight: '1px solid var(--border)' }}>PIN</th>
+                                <th style={{ padding: '1rem', fontWeight: 600, textAlign: 'left', color: 'var(--foreground)', opacity: 0.7, borderRight: '1px solid var(--border)' }}>Status</th>
+                                <th style={{ padding: '1rem', fontWeight: 600, textAlign: 'left', color: 'var(--foreground)', opacity: 0.7, borderRight: '1px solid var(--border)' }}>Time Log</th>
+                                <th style={{ padding: '1rem', fontWeight: 600, textAlign: 'left', color: 'var(--foreground)', opacity: 0.7 }}>Actions</th>
                             </tr>
                         </thead>
                         <tbody>
                             {filteredPackages.map(pkg => (
-                                <tr key={pkg.id} className="border-b border-gray-100 hover:bg-gray-50 transition-colors">
-                                    <td className="p-4">
+                                <tr key={pkg.id} style={{ borderBottom: '1px solid var(--border)', transition: 'background 0.2s' }} className="hover:bg-gray-50">
+                                    <td style={{ padding: '1rem', borderRight: '1px solid var(--border)' }}>
                                         {pkg.photoUrl ? (
                                             <a href={pkg.photoUrl} target="_blank" rel="noopener noreferrer" className="block w-16 h-16 rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow">
                                                 <img src={pkg.photoUrl} alt="Package" className="w-full h-full object-cover" />
@@ -134,41 +139,88 @@ export default function PackagesTab() {
                                             </div>
                                         )}
                                     </td>
-                                    <td className="p-4">
-                                        <div className="font-bold text-gray-900">{pkg.recipient.name}</div>
-                                        <div className="text-xs text-gray-500">{pkg.recipient.email}</div>
+                                    <td style={{ padding: '1rem', borderRight: '1px solid var(--border)' }}>
+                                        <div style={{ fontWeight: 'bold', color: 'var(--foreground)' }}>{pkg.recipient.name}</div>
+                                        <div style={{ fontSize: '0.75rem', color: 'var(--foreground)', opacity: 0.6 }}>{pkg.recipient.email}</div>
                                     </td>
-                                    <td className="p-4">
-                                        <div className="font-mono font-bold text-lg text-gray-700">{pkg.locker.lockerNumber}</div>
+                                    <td style={{ padding: '1rem', borderRight: '1px solid var(--border)' }}>
+                                        <div style={{ fontFamily: 'monospace', fontWeight: 'bold', fontSize: '1.125rem', color: 'var(--foreground)' }}>{pkg.locker.lockerNumber}</div>
                                     </td>
-                                    <td className="p-4">
+                                    <td style={{ padding: '1rem', borderRight: '1px solid var(--border)' }}>
                                         <button
                                             onClick={() => togglePin(pkg.id)}
-                                            className="text-xs bg-gray-100 text-gray-600 px-3 py-1.5 rounded-md hover:bg-gray-200 font-mono transition-colors"
+                                            style={{
+                                                fontSize: '0.75rem',
+                                                background: 'var(--primary)',
+                                                color: 'white',
+                                                padding: '0.5rem 1rem',
+                                                borderRadius: '0.5rem',
+                                                border: 'none',
+                                                fontFamily: 'monospace',
+                                                fontWeight: 600,
+                                                cursor: 'pointer',
+                                                transition: 'all 0.2s',
+                                                boxShadow: '0 2px 4px rgba(0,0,0,0.1)'
+                                            }}
+                                            onMouseOver={(e) => e.currentTarget.style.transform = 'translateY(-1px)'}
+                                            onMouseOut={(e) => e.currentTarget.style.transform = 'translateY(0)'}
                                         >
-                                            {visiblePins.has(pkg.id) ? pkg.pin : 'Show PIN'}
+                                            {visiblePins.has(pkg.id) ? pkg.pin : '👁️ Show PIN'}
                                         </button>
                                     </td>
-                                    <td className="p-4">
-                                        <span className={`px-3 py-1 rounded-full text-xs font-bold inline-flex items-center gap-1 ${pkg.status === 'PENDING' ? 'bg-yellow-100 text-yellow-800' : 'bg-green-100 text-green-800'
-                                            }`}>
-                                            <span className={`w-2 h-2 rounded-full ${pkg.status === 'PENDING' ? 'bg-yellow-500' : 'bg-green-500'}`}></span>
+                                    <td style={{ padding: '1rem', borderRight: '1px solid var(--border)' }}>
+                                        <span style={{
+                                            padding: '0.5rem 0.75rem',
+                                            borderRadius: '9999px',
+                                            fontSize: '0.75rem',
+                                            fontWeight: 'bold',
+                                            display: 'inline-flex',
+                                            alignItems: 'center',
+                                            gap: '0.25rem',
+                                            background: pkg.status === 'PENDING' ? '#fef3c7' : '#d1fae5',
+                                            color: pkg.status === 'PENDING' ? '#92400e' : '#065f46'
+                                        }}>
+                                            <span style={{
+                                                width: '0.5rem',
+                                                height: '0.5rem',
+                                                borderRadius: '9999px',
+                                                background: pkg.status === 'PENDING' ? '#f59e0b' : '#10b981'
+                                            }}></span>
                                             {pkg.status}
                                         </span>
                                     </td>
-                                    <td className="p-4 text-xs text-gray-600 space-y-1">
-                                        <div><span className="font-semibold">In:</span> {new Date(pkg.createdAt).toLocaleDateString()} {new Date(pkg.createdAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</div>
+                                    <td style={{ padding: '1rem', fontSize: '0.75rem', color: 'var(--foreground)', opacity: 0.7, borderRight: '1px solid var(--border)' }}>
+                                        <div><span style={{ fontWeight: 600 }}>In:</span> {new Date(pkg.createdAt).toLocaleDateString()} {new Date(pkg.createdAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</div>
                                         {pkg.pickedUpAt && (
-                                            <div className="text-green-700"><span className="font-semibold">Out:</span> {new Date(pkg.pickedUpAt).toLocaleDateString()} {new Date(pkg.pickedUpAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</div>
+                                            <div style={{ color: '#059669' }}><span style={{ fontWeight: 600 }}>Out:</span> {new Date(pkg.pickedUpAt).toLocaleDateString()} {new Date(pkg.pickedUpAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</div>
                                         )}
                                     </td>
-                                    <td className="p-4">
+                                    <td style={{ padding: '1rem' }}>
                                         {pkg.status === 'PENDING' && (
                                             <button
                                                 onClick={() => handleMarkPickedUp(pkg.id)}
-                                                className="text-xs bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 shadow-sm hover:shadow transition-all font-medium"
+                                                style={{
+                                                    fontSize: '0.75rem',
+                                                    background: 'linear-gradient(135deg, #10b981, #059669)',
+                                                    color: 'white',
+                                                    padding: '0.625rem 1.25rem',
+                                                    borderRadius: '0.5rem',
+                                                    border: 'none',
+                                                    fontWeight: 600,
+                                                    cursor: 'pointer',
+                                                    transition: 'all 0.2s',
+                                                    boxShadow: '0 2px 8px rgba(16, 185, 129, 0.3)'
+                                                }}
+                                                onMouseOver={(e) => {
+                                                    e.currentTarget.style.transform = 'translateY(-2px)'
+                                                    e.currentTarget.style.boxShadow = '0 4px 12px rgba(16, 185, 129, 0.4)'
+                                                }}
+                                                onMouseOut={(e) => {
+                                                    e.currentTarget.style.transform = 'translateY(0)'
+                                                    e.currentTarget.style.boxShadow = '0 2px 8px rgba(16, 185, 129, 0.3)'
+                                                }}
                                             >
-                                                Mark Picked Up
+                                                ✓ Mark Picked Up
                                             </button>
                                         )}
                                     </td>

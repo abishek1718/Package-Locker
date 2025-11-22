@@ -96,7 +96,7 @@ export default function RecipientsTab() {
             <div className="grid md:grid-cols-2 gap-6">
                 {/* Add Single Recipient */}
                 <div className="glass-card p-6">
-                    <h2 className="text-xl font-bold mb-4">Add New Recipient</h2>
+                    <h2 className="text-xl font-bold mb-6">Add New Recipient</h2>
                     <form onSubmit={handleAddRecipient} className="grid gap-4">
                         <input
                             className="input"
@@ -113,7 +113,7 @@ export default function RecipientsTab() {
                             onChange={e => setNewRecipient({ ...newRecipient, email: e.target.value })}
                             required
                         />
-                        <button type="submit" className="btn btn-primary" disabled={addingRecipient}>
+                        <button type="submit" className="btn btn-primary w-full md:w-auto" disabled={addingRecipient}>
                             {addingRecipient ? 'Adding...' : 'Add Recipient'}
                         </button>
                     </form>
@@ -122,7 +122,7 @@ export default function RecipientsTab() {
                 {/* Bulk CSV Upload */}
                 <div className="glass-card p-6">
                     <h2 className="text-xl font-bold mb-4">Bulk Import Recipients</h2>
-                    <p className="text-sm text-gray-600 mb-4">
+                    <p className="text-sm" style={{ color: 'var(--foreground)', opacity: 0.7, marginBottom: '1rem' }}>
                         Upload a CSV file with columns: <strong>Name, Email</strong>
                     </p>
                     <form onSubmit={handleCsvUpload} className="grid gap-4">
@@ -133,7 +133,7 @@ export default function RecipientsTab() {
                             onChange={e => setCsvFile(e.target.files?.[0] || null)}
                             required
                         />
-                        <button type="submit" className="btn btn-primary" disabled={uploadingCsv || !csvFile}>
+                        <button type="submit" className="btn btn-primary w-full md:w-auto" disabled={uploadingCsv || !csvFile}>
                             {uploadingCsv ? 'Uploading...' : 'Upload CSV'}
                         </button>
                     </form>
@@ -142,41 +142,43 @@ export default function RecipientsTab() {
 
             {/* Recipients List */}
             <div>
-                <div className="flex justify-between items-center mb-4">
+                <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-4">
                     <h2 className="text-xl font-bold">Recipient Directory</h2>
                     <input
                         type="text"
                         placeholder="Search recipients..."
-                        className="input w-64"
+                        className="input w-full md:w-64"
                         value={searchTerm}
                         onChange={e => setSearchTerm(e.target.value)}
                     />
                 </div>
 
-                <div className="glass-card overflow-x-auto">
-                    <table className="w-full border-collapse">
-                        <thead>
-                            <tr className="text-left border-b border-gray-200 bg-gray-50">
-                                <th className="p-4 font-semibold text-gray-600">Name</th>
-                                <th className="p-4 font-semibold text-gray-600">Email</th>
-                                <th className="p-4 font-semibold text-gray-600">Joined</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {loading ? (
-                                <tr><td colSpan={3} className="p-8 text-center">Loading...</td></tr>
-                            ) : filteredRecipients.map(r => (
-                                <tr key={r.id} className="border-b border-gray-100 hover:bg-gray-50 transition-colors">
-                                    <td className="p-4 font-medium">{r.name}</td>
-                                    <td className="p-4 text-gray-600">{r.email}</td>
-                                    <td className="p-4 text-sm text-gray-500">{new Date(r.createdAt).toLocaleDateString()}</td>
+                <div className="glass-card overflow-hidden">
+                    <div className="overflow-x-auto">
+                        <table className="w-full" style={{ borderCollapse: 'separate', borderSpacing: 0 }}>
+                            <thead>
+                                <tr style={{ background: 'var(--surface)', borderBottom: '2px solid var(--border)' }}>
+                                    <th style={{ padding: '1rem', fontWeight: 600, textAlign: 'left', color: 'var(--foreground)', opacity: 0.7, borderRight: '1px solid var(--border)' }}>Name</th>
+                                    <th style={{ padding: '1rem', fontWeight: 600, textAlign: 'left', color: 'var(--foreground)', opacity: 0.7, borderRight: '1px solid var(--border)' }}>Email</th>
+                                    <th style={{ padding: '1rem', fontWeight: 600, textAlign: 'left', color: 'var(--foreground)', opacity: 0.7 }}>Joined</th>
                                 </tr>
-                            ))}
-                        </tbody>
-                    </table>
-                    {!loading && filteredRecipients.length === 0 && (
-                        <div className="p-8 text-center text-gray-500">No recipients found.</div>
-                    )}
+                            </thead>
+                            <tbody>
+                                {loading ? (
+                                    <tr><td colSpan={3} className="p-8 text-center">Loading...</td></tr>
+                                ) : filteredRecipients.map(r => (
+                                    <tr key={r.id} style={{ borderBottom: '1px solid var(--border)', transition: 'background 0.2s' }} className="hover:bg-gray-50">
+                                        <td style={{ padding: '1rem', fontWeight: 500, color: 'var(--foreground)', borderRight: '1px solid var(--border)' }}>{r.name}</td>
+                                        <td style={{ padding: '1rem', color: 'var(--foreground)', opacity: 0.7, borderRight: '1px solid var(--border)' }}>{r.email}</td>
+                                        <td style={{ padding: '1rem', fontSize: '0.875rem', color: 'var(--foreground)', opacity: 0.6 }}>{new Date(r.createdAt).toLocaleDateString()}</td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                        {!loading && filteredRecipients.length === 0 && (
+                            <div className="p-8 text-center text-gray-500">No recipients found.</div>
+                        )}
+                    </div>
                 </div>
             </div>
         </div>

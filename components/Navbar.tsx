@@ -61,7 +61,7 @@ export default function Navbar() {
                     >
                         Scan Package
                     </Link>
-                    <div style={{ width: '1px', height: '24px', background: 'var(--border)' }}></div>
+                    <div style={{ width: '2px', height: '24px', background: 'var(--border)', opacity: 0.5 }}></div>
                     <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
                         <span style={{ fontSize: '0.875rem', color: 'var(--foreground)', opacity: 0.7 }}>
                             {session?.user?.name} ({session?.user?.role})
