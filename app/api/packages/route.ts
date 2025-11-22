@@ -69,25 +69,7 @@ export async function POST(request: Request) {
             data: {
                 status: 'OCCUPIED',
                 currentPin: pin,
-            }
-        })
-
-        // Send Email
-        // Determine Base URL
-        let baseUrl = process.env.NEXTAUTH_URL
-        if (!baseUrl) {
-            const host = request.headers.get('host')
-            const protocol = request.headers.get('x-forwarded-proto') || 'http'
-            baseUrl = `${protocol}://${host}`
-        }
-
-        const pickupLink = `${baseUrl}/pickup/${pkg.id}`
-        await sendNotification(
-            pkg.resident.email,
-            pkg.resident.name,
-            pkg.locker.lockerNumber,
-            pin,
-            pickupLink
+                pickupLink
         )
 
         return NextResponse.json(pkg)
