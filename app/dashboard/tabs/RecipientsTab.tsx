@@ -160,15 +160,15 @@ export default function RecipientsTab() {
 
                 <div className="glass-card overflow-hidden">
                     <div className="overflow-x-auto">
-                        <table style={{ width: '100%', borderCollapse: 'separate', borderSpacing: 0, minWidth: '800px' }}>
-                            <thead>
+                        <table style={{ display: 'block', width: '100%', minWidth: '800px', borderCollapse: 'separate', borderSpacing: 0 }}>
+                            <thead style={{ display: 'table', width: '100%', tableLayout: 'fixed' }}>
                                 <tr style={{ background: 'var(--surface)', borderBottom: '2px solid var(--border)' }}>
                                     <th style={{ padding: '1rem', fontWeight: 600, textAlign: 'left', color: 'var(--foreground)', opacity: 0.7, borderRight: '1px solid var(--border)', minWidth: '200px' }}>Name</th>
                                     <th style={{ padding: '1rem', fontWeight: 600, textAlign: 'left', color: 'var(--foreground)', opacity: 0.7, borderRight: '1px solid var(--border)', minWidth: '250px' }}>Email</th>
                                     <th style={{ padding: '1rem', fontWeight: 600, textAlign: 'left', color: 'var(--foreground)', opacity: 0.7, minWidth: '150px' }}>Joined</th>
                                 </tr>
                             </thead>
-                            <tbody>
+                            <tbody style={{ display: 'table', width: '100%', tableLayout: 'fixed' }}>
                                 {loading ? (
                                     <tr><td colSpan={3} className="p-8 text-center">Loading...</td></tr>
                                 ) : filteredRecipients.map(r => (
