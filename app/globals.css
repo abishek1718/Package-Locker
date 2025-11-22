@@ -316,3 +316,22 @@ a {
     width: auto;
   }
 }
+
+/* Responsive visibility utilities */
+.block {
+  display: block;
+}
+
+.hidden {
+  display: none;
+}
+
+@media (min-width: 768px) {
+  .md\:hidden {
+    display: none !important;
+  }
+
+  .md\:block {
+    display: block !important;
+  }
+}
