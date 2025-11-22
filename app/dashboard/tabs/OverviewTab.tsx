@@ -47,30 +47,38 @@ export default function OverviewTab() {
 
             {/* Locker Matrix */}
             <div>
-                <h2 className="mb-4 text-xl font-bold text-gray-800 flex items-center gap-2">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-blue-600"><rect width="18" height="18" x="3" y="3" rx="2" ry="2" /><line x1="3" x2="21" y1="9" y2="9" /><line x1="9" x2="9" y1="21" y2="9" /></svg>
+                <h2 className="mb-6 text-xl font-bold text-gray-800 flex items-center gap-2">
+                    <div className="p-2 bg-blue-100 rounded-lg text-blue-600">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect width="18" height="18" x="3" y="3" rx="2" ry="2" /><line x1="3" x2="21" y1="9" y2="9" /><line x1="9" x2="9" y1="21" y2="9" /></svg>
+                    </div>
                     Package Lockers
                 </h2>
                 <div style={{
                     display: 'grid',
-                    gridTemplateColumns: 'repeat(auto-fill, minmax(80px, 1fr))',
-                    gap: '0.75rem'
+                    gridTemplateColumns: 'repeat(auto-fill, minmax(100px, 1fr))',
+                    gap: '1rem'
                 }}>
                     {lockers.map((locker: any) => (
-                        <div key={locker.id} className="glass-card p-2 text-center transition-transform hover:scale-105" style={{
+                        <div key={locker.id} className="glass-card p-3 text-center transition-all hover:scale-105 hover:shadow-md" style={{
                             border: `2px solid ${locker.status === 'AVAILABLE' ? '#22c55e' : '#ef4444'}`,
                             background: locker.status === 'AVAILABLE' ? 'rgba(34, 197, 94, 0.05)' : 'rgba(239, 68, 68, 0.05)',
-                            borderRadius: '8px',
-                            cursor: 'default'
+                            borderRadius: '12px',
+                            cursor: 'default',
+                            display: 'flex',
+                            flexDirection: 'column',
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                            minHeight: '80px'
                         }}>
-                            <div className="text-lg font-bold text-gray-800">{locker.lockerNumber}</div>
+                            <div className="text-xl font-bold text-gray-800 mb-1">{locker.lockerNumber}</div>
                             <div style={{
-                                color: locker.status === 'AVAILABLE' ? '#22c55e' : '#ef4444',
-                                fontSize: '0.65rem',
-                                fontWeight: 'bold',
-                                textTransform: 'uppercase'
+                                color: locker.status === 'AVAILABLE' ? '#15803d' : '#b91c1c',
+                                fontSize: '0.7rem',
+                                fontWeight: '700',
+                                textTransform: 'uppercase',
+                                letterSpacing: '0.05em'
                             }}>
-                                {locker.status === 'AVAILABLE' ? 'Free' : 'Busy'}
+                                {locker.status === 'AVAILABLE' ? 'Available' : 'Occupied'}
                             </div>
                         </div>
                     ))}

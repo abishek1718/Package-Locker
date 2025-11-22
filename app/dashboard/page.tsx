@@ -30,15 +30,16 @@ export default function Dashboard() {
 
     return (
         <div className="container" style={{ padding: '2rem 1rem' }}>
-            <div className="flex flex-col md:flex-row justify-between items-center mb-6 gap-4">
-                <h1>Mailroom Dashboard</h1>
-                <button className="btn btn-primary" onClick={() => router.push('/scan')}>
+            <div className="flex flex-col md:flex-row justify-between items-center mb-12 gap-8 pt-6">
+                <h1 className="text-3xl md:text-4xl font-bold text-gray-900 tracking-tight">Mailroom Dashboard</h1>
+                <button className="btn btn-primary w-full md:w-auto shadow-xl shadow-blue-500/20 py-4 px-8 text-lg" onClick={() => router.push('/scan')}>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M3 7V5a2 2 0 0 1 2-2h2" /><path d="M17 3h2a2 2 0 0 1 2 2v2" /><path d="M21 17v2a2 2 0 0 1-2 2h-2" /><path d="M7 21H5a2 2 0 0 1-2-2v-2" /><rect width="10" height="10" x="7" y="7" rx="2" /></svg>
                     Scan New Package
                 </button>
             </div>
 
             {/* Modern Tab Navigation */}
-            <div className="tab-nav mb-8 overflow-x-auto pb-1">
+            <div className="tab-nav mb-12 overflow-x-auto p-2 gap-4 bg-gray-50/50 rounded-2xl border border-gray-100">
                 {tabs.map(tab => {
                     if (tab.adminOnly && session?.user?.role !== 'ADMIN') return null
                     return (
