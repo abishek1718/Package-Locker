@@ -38,7 +38,7 @@ export default function Dashboard() {
             </div>
 
             {/* Modern Tab Navigation */}
-            <div className="tab-nav mb-8">
+            <div className="tab-nav mb-8 overflow-x-auto pb-1">
                 {tabs.map(tab => {
                     if (tab.adminOnly && session?.user?.role !== 'ADMIN') return null
                     return (
@@ -54,7 +54,7 @@ export default function Dashboard() {
             </div>
 
             {/* Tab Content */}
-            <div className="min-h-[400px]">
+            <div className="min-h-[400px] space-y-8">
                 {activeTab === 'overview' && <OverviewTab />}
                 {activeTab === 'packages' && <PackagesTab />}
                 {activeTab === 'recipients' && <RecipientsTab />}
