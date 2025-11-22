@@ -1,0 +1,56 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(uuid())
+  email     String   @unique
+  password  String
+  name      String?
+  role      String   @default("STAFF") // STAFF, ADMIN
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Resident {
+  id         String    @id @default(uuid())
+  name       String
+  email      String    @unique
+  unitNumber String
+  packages   Package[]
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
+}
+
+model Locker {
+  id           String    @id @default(uuid())
+  lockerNumber String    @unique
+  qrIdentifier String    @unique
+  status       String    @default("AVAILABLE") // AVAILABLE, OCCUPIED, MAINTENANCE
+  currentPin   String?
+  packages     Package[]
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+}
+
+model Package {
+  id         String    @id @default(uuid())
+  lockerId   String
+  residentId String
+  pin        String
+  photoUrl   String?
+  status     String    @default("PENDING") // PENDING, PICKED_UP, EXPIRED
+  createdAt  DateTime  @default(now())
+  pickedUpAt DateTime?
+  
+  locker     Locker    @relation(fields: [lockerId], references: [id])
+  resident   Resident  @relation(fields: [residentId], references: [id])
+}
