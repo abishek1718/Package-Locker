@@ -96,8 +96,18 @@ export async function POST(request: Request) {
         )
 
         return NextResponse.json(pkg)
-    } catch (error) {
-        console.error(error)
-        return NextResponse.json({ error: 'Error creating package' }, { status: 500 })
+    } catch (error: any) {
+        console.error('Error creating package:', error)
+        console.error('Error details:', {
+            message: error.message,
+            code: error.code,
+            meta: error.meta,
+            name: error.name
+        })
+
+        const errorMessage = error.message || 'Error creating package'
+        return NextResponse.json({
+            error: `Error creating package: ${errorMessage}`
+        }, { status: 500 })
     }
 }
