@@ -8,10 +8,10 @@ import { Html5QrcodeScanner } from 'html5-qrcode'
 export default function ScanPage() {
     const { data: session, status } = useSession()
     const router = useRouter()
-    const [residents, setResidents] = useState<any[]>([])
+    const [recipients, setRecipients] = useState<any[]>([])
     const [lockers, setLockers] = useState<any[]>([])
     const [lockerInput, setLockerInput] = useState('')
-    const [residentId, setResidentId] = useState('')
+    const [recipientId, setRecipientId] = useState('')
     const [scannedResult, setScannedResult] = useState('')
     const [generatedPin, setGeneratedPin] = useState('')
     const [loading, setLoading] = useState(false)
@@ -21,14 +21,14 @@ export default function ScanPage() {
     useEffect(() => {
         if (status === 'unauthenticated') router.push('/')
         if (status === 'authenticated') {
-            fetchResidents()
+            fetchRecipients()
             fetchLockers()
         }
     }, [status, router])
 
-    const fetchResidents = async () => {
-        const res = await fetch('/api/residents')
-        if (res.ok) setResidents(await res.json())
+    const fetchRecipients = async () => {
+        const res = await fetch('/api/recipients')
+        if (res.ok) setRecipients(await res.json())
     }
 
     const fetchLockers = async () => {
@@ -114,7 +114,7 @@ export default function ScanPage() {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
                 lockerId: locker.id,
-                residentId,
+                recipientId,
                 photoUrl
             })
         })
@@ -143,7 +143,7 @@ export default function ScanPage() {
                         onClick={() => {
                             setGeneratedPin('')
                             setLockerInput('')
-                            setResidentId('')
+                            setRecipientId('')
                             setScannedResult('')
                             setError('')
                             setPhoto(null)
@@ -181,16 +181,16 @@ export default function ScanPage() {
                     </div>
 
                     <div>
-                        <label style={{ display: 'block', marginBottom: '0.5rem' }}>Select Resident</label>
+                        <label style={{ display: 'block', marginBottom: '0.5rem' }}>Select Recipient</label>
                         <select
                             className="input"
-                            value={residentId}
-                            onChange={(e) => setResidentId(e.target.value)}
+                            value={recipientId}
+                            onChange={(e) => setRecipientId(e.target.value)}
                             required
                         >
-                            <option value="">-- Select Resident --</option>
-                            {residents.map(r => (
-                                <option key={r.id} value={r.id}>{r.name} (Unit {r.unitNumber})</option>
+                            <option value="">-- Select Recipient --</option>
+                            {recipients.map(r => (
+                                <option key={r.id} value={r.id}>{r.name} ({r.email})</option>
                             ))}
                         </select>
                     </div>
