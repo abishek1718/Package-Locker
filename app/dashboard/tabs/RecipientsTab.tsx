@@ -46,10 +46,12 @@ export default function RecipientsTab() {
                 setNewRecipient({ name: '', email: '' })
                 fetchRecipients()
             } else {
-                alert('Error adding recipient')
+                const data = await res.json()
+                alert(data.error || 'Error adding recipient')
             }
         } catch (e) {
             console.error(e)
+            alert('Network error: Unable to add recipient')
         }
         setAddingRecipient(false)
     }
