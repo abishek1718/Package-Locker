@@ -13,7 +13,7 @@ export async function GET(request: Request, { params }: { params: Promise<{ id: 
         where: { id },
         include: {
             locker: true,
-            resident: true,
+            recipient: true,
         }
     })
 

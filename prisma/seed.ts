@@ -34,24 +34,23 @@ async function main() {
     }
     console.log(`Seeded ${lockers.length} lockers`)
 
-    // Create Residents
-    const residents = [
-        { name: 'John Doe', email: 'john@example.com', unit: '101' },
-        { name: 'Jane Smith', email: 'jane@example.com', unit: '102' },
+    // Create Recipients
+    const recipients = [
+        { name: 'John Doe', email: 'john@example.com' },
+        { name: 'Jane Smith', email: 'jane@example.com' },
     ]
 
-    for (const r of residents) {
-        await prisma.resident.upsert({
+    for (const r of recipients) {
+        await prisma.recipient.upsert({
             where: { email: r.email },
             update: {},
             create: {
                 name: r.name,
                 email: r.email,
-                unitNumber: r.unit,
             },
         })
     }
-    console.log(`Seeded ${residents.length} residents`)
+    console.log(`Seeded ${recipients.length} recipients`)
 }
 
 main()

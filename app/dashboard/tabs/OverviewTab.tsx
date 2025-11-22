@@ -25,7 +25,7 @@ export default function OverviewTab() {
         fetchData()
     }, [])
 
-    if (loading) return <div>Loading stats...</div>
+    if (loading) return <div className="p-8 text-center text-gray-500">Loading stats...</div>
 
     // Calculate stats
     const availableLockers = lockers.filter(l => l.status === 'AVAILABLE').length
@@ -45,21 +45,29 @@ export default function OverviewTab() {
                 </div>
             </div>
 
-            {/* Locker Grid */}
+            {/* Locker Matrix */}
             <div>
-                <h2 className="mb-4 text-xl font-bold">Locker Status</h2>
-                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4">
+                <h2 className="mb-4 text-xl font-bold">Locker Matrix</h2>
+                <div style={{
+                    display: 'grid',
+                    gridTemplateColumns: 'repeat(auto-fill, minmax(80px, 1fr))',
+                    gap: '0.75rem'
+                }}>
                     {lockers.map((locker: any) => (
-                        <div key={locker.id} className="glass-card p-4 text-center" style={{
-                            borderLeft: `5px solid ${locker.status === 'AVAILABLE' ? '#22c55e' : '#ef4444'}`
+                        <div key={locker.id} className="glass-card p-2 text-center transition-transform hover:scale-105" style={{
+                            border: `2px solid ${locker.status === 'AVAILABLE' ? '#22c55e' : '#ef4444'}`,
+                            background: locker.status === 'AVAILABLE' ? 'rgba(34, 197, 94, 0.05)' : 'rgba(239, 68, 68, 0.05)',
+                            borderRadius: '8px',
+                            cursor: 'default'
                         }}>
-                            <div className="text-2xl font-bold mb-1">{locker.lockerNumber}</div>
+                            <div className="text-lg font-bold text-gray-800">{locker.lockerNumber}</div>
                             <div style={{
                                 color: locker.status === 'AVAILABLE' ? '#22c55e' : '#ef4444',
-                                fontSize: '0.75rem',
-                                fontWeight: 'bold'
+                                fontSize: '0.65rem',
+                                fontWeight: 'bold',
+                                textTransform: 'uppercase'
                             }}>
-                                {locker.status}
+                                {locker.status === 'AVAILABLE' ? 'Free' : 'Busy'}
                             </div>
                         </div>
                     ))}

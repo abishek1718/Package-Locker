@@ -16,7 +16,7 @@ export async function GET() {
                 }
             },
             include: {
-                resident: true,
+                recipient: true,
                 locker: true
             }
         })
@@ -33,8 +33,8 @@ export async function GET() {
             // Let's just re-send the notification.
 
             await sendNotification(
-                pkg.resident.email,
-                pkg.resident.name,
+                pkg.recipient.email,
+                pkg.recipient.name,
                 pkg.locker.lockerNumber,
                 pkg.pin,
                 pickupLink
@@ -42,7 +42,7 @@ export async function GET() {
 
             results.push({
                 id: pkg.id,
-                resident: pkg.resident.email,
+                recipient: pkg.recipient.email,
                 status: 'Reminder Sent'
             })
         }

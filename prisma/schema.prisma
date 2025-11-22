@@ -20,14 +20,13 @@ model User {
   updatedAt DateTime @updatedAt
 }
 
-model Resident {
-  id         String    @id @default(uuid())
-  name       String
-  email      String    @unique
-  unitNumber String
-  packages   Package[]
-  createdAt  DateTime  @default(now())
-  updatedAt  DateTime  @updatedAt
+model Recipient {
+  id        String    @id @default(uuid())
+  name      String
+  email     String    @unique
+  packages  Package[]
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
 }
 
 model Locker {
@@ -42,15 +41,15 @@ model Locker {
 }
 
 model Package {
-  id         String    @id @default(uuid())
-  lockerId   String
-  residentId String
-  pin        String
-  photoUrl   String?
-  status     String    @default("PENDING") // PENDING, PICKED_UP, EXPIRED
-  createdAt  DateTime  @default(now())
-  pickedUpAt DateTime?
+  id          String    @id @default(uuid())
+  lockerId    String
+  recipientId String
+  pin         String
+  photoUrl    String?
+  status      String    @default("PENDING") // PENDING, PICKED_UP, EXPIRED
+  createdAt   DateTime  @default(now())
+  pickedUpAt  DateTime?
   
-  locker     Locker    @relation(fields: [lockerId], references: [id])
-  resident   Resident  @relation(fields: [residentId], references: [id])
+  locker      Locker    @relation(fields: [lockerId], references: [id])
+  recipient   Recipient @relation(fields: [recipientId], references: [id])
 }

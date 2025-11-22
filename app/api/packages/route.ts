@@ -3,7 +3,6 @@ import { prisma } from '@/lib/prisma'
 import { getServerSession } from 'next-auth'
 import { authOptions } from '@/app/api/auth/[...nextauth]/route'
 import { sendNotification } from '@/lib/email'
-import { v4 as uuidv4 } from 'uuid'
 
 // Generate a random 6-digit PIN
 function generatePin() {
@@ -19,7 +18,7 @@ export async function GET() {
     const packages = await prisma.package.findMany({
         include: {
             locker: true,
-            resident: true,
+            recipient: true,
         },
         orderBy: { createdAt: 'desc' }
     })
@@ -34,7 +33,7 @@ export async function POST(request: Request) {
 
     try {
         const body = await request.json()
-        const { lockerId, residentId, photoUrl } = body
+        const { lockerId, recipientId, photoUrl } = body
 
         // Check if locker is available
         const locker = await prisma.locker.findUnique({ where: { id: lockerId } })
@@ -52,13 +51,13 @@ export async function POST(request: Request) {
         const pkg = await prisma.package.create({
             data: {
                 lockerId,
-                residentId,
+                recipientId,
                 pin,
                 photoUrl,
                 status: 'PENDING',
             },
             include: {
-                resident: true,
+                recipient: true,
                 locker: true,
             }
         })
@@ -89,8 +88,8 @@ export async function POST(request: Request) {
 
         const pickupLink = `${baseUrl}/pickup/${pkg.id}`
         await sendNotification(
-            pkg.resident.email,
-            pkg.resident.name,
+            pkg.recipient.email,
+            pkg.recipient.name,
             pkg.locker.lockerNumber,
             pin,
             pickupLink

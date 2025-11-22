@@ -1,4 +1,5 @@
 'use client'
+'use client'
 
 import { useEffect, useState } from 'react'
 
@@ -73,7 +74,7 @@ export default function StaffTab() {
     return (
         <div className="grid gap-8">
             {/* Add Staff Form */}
-            <div className="glass-card p-6 max-w-2xl">
+            <div className="glass-card p-6 max-w-2xl mx-auto w-full">
                 <h2 className="text-xl font-bold mb-4">Add New Staff Member</h2>
                 <form onSubmit={handleAddUser} className="grid gap-4">
                     <div className="grid md:grid-cols-2 gap-4">
@@ -111,7 +112,7 @@ export default function StaffTab() {
                             <option value="ADMIN">Admin</option>
                         </select>
                     </div>
-                    <button type="submit" className="btn btn-primary" disabled={addingUser}>
+                    <button type="submit" className="btn btn-primary w-full md:w-auto" disabled={addingUser}>
                         {addingUser ? 'Adding...' : 'Add Staff Member'}
                     </button>
                 </form>
@@ -120,43 +121,45 @@ export default function StaffTab() {
             {/* Staff List */}
             <div>
                 <h2 className="text-xl font-bold mb-4">Staff Directory</h2>
-                <div className="glass-card overflow-x-auto">
-                    <table className="w-full border-collapse">
-                        <thead>
-                            <tr className="text-left border-b border-gray-200">
-                                <th className="p-4">Name</th>
-                                <th className="p-4">Email</th>
-                                <th className="p-4">Role</th>
-                                <th className="p-4">Joined</th>
-                                <th className="p-4">Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {loading ? (
-                                <tr><td colSpan={5} className="p-8 text-center">Loading...</td></tr>
-                            ) : users.map(user => (
-                                <tr key={user.id} className="border-b border-gray-100 hover:bg-gray-50">
-                                    <td className="p-4 font-bold">{user.name}</td>
-                                    <td className="p-4 text-gray-600">{user.email}</td>
-                                    <td className="p-4">
-                                        <span className={`px-2 py-1 rounded-full text-xs font-bold ${user.role === 'ADMIN' ? 'bg-purple-100 text-purple-800' : 'bg-blue-100 text-blue-800'
-                                            }`}>
-                                            {user.role}
-                                        </span>
-                                    </td>
-                                    <td className="p-4 text-sm text-gray-500">{new Date(user.createdAt).toLocaleDateString()}</td>
-                                    <td className="p-4">
-                                        <button
-                                            onClick={() => handleDeleteUser(user.id)}
-                                            className="text-xs bg-red-100 text-red-600 px-3 py-1 rounded hover:bg-red-200"
-                                        >
-                                            Delete
-                                        </button>
-                                    </td>
+                <div className="glass-card overflow-hidden">
+                    <div className="overflow-x-auto">
+                        <table className="w-full border-collapse">
+                            <thead>
+                                <tr className="text-left border-b border-gray-200 bg-gray-50">
+                                    <th className="p-4 font-semibold text-gray-600">Name</th>
+                                    <th className="p-4 font-semibold text-gray-600">Email</th>
+                                    <th className="p-4 font-semibold text-gray-600">Role</th>
+                                    <th className="p-4 font-semibold text-gray-600">Joined</th>
+                                    <th className="p-4 font-semibold text-gray-600">Actions</th>
                                 </tr>
-                            ))}
-                        </tbody>
-                    </table>
+                            </thead>
+                            <tbody>
+                                {loading ? (
+                                    <tr><td colSpan={5} className="p-8 text-center">Loading...</td></tr>
+                                ) : users.map(user => (
+                                    <tr key={user.id} className="border-b border-gray-100 hover:bg-gray-50 transition-colors">
+                                        <td className="p-4 font-medium">{user.name}</td>
+                                        <td className="p-4 text-gray-600">{user.email}</td>
+                                        <td className="p-4">
+                                            <span className={`px-2 py-1 rounded-full text-xs font-bold ${user.role === 'ADMIN' ? 'bg-purple-100 text-purple-800' : 'bg-blue-100 text-blue-800'
+                                                }`}>
+                                                {user.role}
+                                            </span>
+                                        </td>
+                                        <td className="p-4 text-sm text-gray-500">{new Date(user.createdAt).toLocaleDateString()}</td>
+                                        <td className="p-4">
+                                            <button
+                                                onClick={() => handleDeleteUser(user.id)}
+                                                className="text-xs bg-red-100 text-red-600 px-3 py-1 rounded hover:bg-red-200 transition-colors"
+                                            >
+                                                Delete
+                                            </button>
+                                        </td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>

@@ -9,10 +9,10 @@ export async function GET() {
         return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
     }
 
-    const residents = await prisma.resident.findMany({
+    const recipients = await prisma.recipient.findMany({
         orderBy: { name: 'asc' }
     })
-    return NextResponse.json(residents)
+    return NextResponse.json(recipients)
 }
 
 export async function POST(request: Request) {
@@ -23,17 +23,22 @@ export async function POST(request: Request) {
 
     try {
         const body = await request.json()
-        const { name, email, unitNumber } = body
+        const { name, email } = body
 
-        const resident = await prisma.resident.create({
+        if (!name || !email) {
+            return NextResponse.json({ error: 'Name and Email are required' }, { status: 400 })
+        }
+
+        const recipient = await prisma.recipient.create({
             data: {
                 name,
-                email,
-                unitNumber,
+                email
             }
         })
-        return NextResponse.json(resident)
+
+        return NextResponse.json(recipient)
     } catch (error) {
-        return NextResponse.json({ error: 'Error creating resident' }, { status: 500 })
+        console.error('Error creating recipient:', error)
+        return NextResponse.json({ error: 'Error creating recipient' }, { status: 500 })
     }
 }

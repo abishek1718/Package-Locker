@@ -28,8 +28,13 @@ export default function Navbar() {
             zIndex: 50
         }}>
             <div className="container" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                <Link href="/dashboard" style={{ fontSize: '1.5rem', fontWeight: 'bold', color: 'var(--primary)', textDecoration: 'none' }}>
-                    📦 LockerSystem
+                <Link href="/dashboard" className="flex items-center gap-2 hover:opacity-80 transition-opacity" style={{ textDecoration: 'none' }}>
+                    <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center text-white font-bold">
+                        L
+                    </div>
+                    <span className="text-xl font-bold bg-gradient-to-r from-blue-600 to-blue-800 bg-clip-text text-transparent">
+                        Locker System
+                    </span>
                 </Link>
 
                 {/* Desktop Menu */}
@@ -57,7 +62,7 @@ export default function Navbar() {
                     <div style={{ width: '1px', height: '24px', background: '#ddd' }}></div>
                     <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
                         <span style={{ fontSize: '0.875rem', color: '#666' }}>
-                            {session.user?.name} ({session.user?.role})
+                            {session?.user?.name} ({session?.user?.role})
                         </span>
                         <button
                             onClick={() => signOut({ callbackUrl: '/' })}
@@ -98,7 +103,7 @@ export default function Navbar() {
                     <Link href="/dashboard" onClick={() => setIsMobileMenuOpen(false)} style={{ textDecoration: 'none', color: '#333' }}>Dashboard</Link>
                     <Link href="/scan" onClick={() => setIsMobileMenuOpen(false)} style={{ textDecoration: 'none', color: '#333' }}>Scan Package</Link>
                     <hr style={{ border: 'none', borderTop: '1px solid #eee', width: '100%' }} />
-                    <div style={{ color: '#666', fontSize: '0.875rem' }}>{session.user?.name}</div>
+                    <div style={{ color: '#666', fontSize: '0.875rem' }}>{session?.user?.name}</div>
                     <button
                         onClick={() => signOut({ callbackUrl: '/' })}
                         style={{
