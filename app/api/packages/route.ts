@@ -73,7 +73,15 @@ export async function POST(request: Request) {
         })
 
         // Send Email
-        const pickupLink = `${process.env.NEXTAUTH_URL}/pickup/${pkg.id}`
+        // Determine Base URL
+        let baseUrl = process.env.NEXTAUTH_URL
+        if (!baseUrl) {
+            const host = request.headers.get('host')
+            const protocol = request.headers.get('x-forwarded-proto') || 'http'
+            baseUrl = `${protocol}://${host}`
+        }
+
+        const pickupLink = `${baseUrl}/pickup/${pkg.id}`
         await sendNotification(
             pkg.resident.email,
             pkg.resident.name,
