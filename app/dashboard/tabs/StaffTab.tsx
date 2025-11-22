@@ -128,14 +128,14 @@ export default function StaffTab() {
 
                 <div className="glass-card overflow-hidden">
                     <div className="overflow-x-auto">
-                        <table className="w-full" style={{ borderCollapse: 'separate', borderSpacing: 0, minWidth: '700px' }}>
+                        <table style={{ width: '100%', borderCollapse: 'separate', borderSpacing: 0, minWidth: '900px' }}>
                             <thead>
                                 <tr style={{ background: 'var(--surface)', borderBottom: '2px solid var(--border)' }}>
-                                    <th style={{ padding: '1rem', fontWeight: 600, textAlign: 'left', color: 'var(--foreground)', opacity: 0.7, borderRight: '1px solid var(--border)' }}>Name</th>
-                                    <th style={{ padding: '1rem', fontWeight: 600, textAlign: 'left', color: 'var(--foreground)', opacity: 0.7, borderRight: '1px solid var(--border)' }}>Email</th>
-                                    <th style={{ padding: '1rem', fontWeight: 600, textAlign: 'left', color: 'var(--foreground)', opacity: 0.7, borderRight: '1px solid var(--border)' }}>Role</th>
-                                    <th style={{ padding: '1rem', fontWeight: 600, textAlign: 'left', color: 'var(--foreground)', opacity: 0.7, borderRight: '1px solid var(--border)' }}>Joined</th>
-                                    <th style={{ padding: '1rem', fontWeight: 600, textAlign: 'left', color: 'var(--foreground)', opacity: 0.7 }}>Actions</th>
+                                    <th style={{ padding: '1rem', fontWeight: 600, textAlign: 'left', color: 'var(--foreground)', opacity: 0.7, borderRight: '1px solid var(--border)', minWidth: '180px' }}>Name</th>
+                                    <th style={{ padding: '1rem', fontWeight: 600, textAlign: 'left', color: 'var(--foreground)', opacity: 0.7, borderRight: '1px solid var(--border)', minWidth: '220px' }}>Email</th>
+                                    <th style={{ padding: '1rem', fontWeight: 600, textAlign: 'left', color: 'var(--foreground)', opacity: 0.7, borderRight: '1px solid var(--border)', minWidth: '120px' }}>Role</th>
+                                    <th style={{ padding: '1rem', fontWeight: 600, textAlign: 'left', color: 'var(--foreground)', opacity: 0.7, borderRight: '1px solid var(--border)', minWidth: '150px' }}>Joined</th>
+                                    <th style={{ padding: '1rem', fontWeight: 600, textAlign: 'left', color: 'var(--foreground)', opacity: 0.7, minWidth: '120px' }}>Actions</th>
                                 </tr>
                             </thead>
                             <tbody>

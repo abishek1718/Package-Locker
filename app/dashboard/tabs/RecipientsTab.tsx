@@ -160,12 +160,12 @@ export default function RecipientsTab() {
 
                 <div className="glass-card overflow-hidden">
                     <div className="overflow-x-auto">
-                        <table className="w-full" style={{ borderCollapse: 'separate', borderSpacing: 0, minWidth: '600px' }}>
+                        <table style={{ width: '100%', borderCollapse: 'separate', borderSpacing: 0, minWidth: '800px' }}>
                             <thead>
                                 <tr style={{ background: 'var(--surface)', borderBottom: '2px solid var(--border)' }}>
-                                    <th style={{ padding: '1rem', fontWeight: 600, textAlign: 'left', color: 'var(--foreground)', opacity: 0.7, borderRight: '1px solid var(--border)' }}>Name</th>
-                                    <th style={{ padding: '1rem', fontWeight: 600, textAlign: 'left', color: 'var(--foreground)', opacity: 0.7, borderRight: '1px solid var(--border)' }}>Email</th>
-                                    <th style={{ padding: '1rem', fontWeight: 600, textAlign: 'left', color: 'var(--foreground)', opacity: 0.7 }}>Joined</th>
+                                    <th style={{ padding: '1rem', fontWeight: 600, textAlign: 'left', color: 'var(--foreground)', opacity: 0.7, borderRight: '1px solid var(--border)', minWidth: '200px' }}>Name</th>
+                                    <th style={{ padding: '1rem', fontWeight: 600, textAlign: 'left', color: 'var(--foreground)', opacity: 0.7, borderRight: '1px solid var(--border)', minWidth: '250px' }}>Email</th>
+                                    <th style={{ padding: '1rem', fontWeight: 600, textAlign: 'left', color: 'var(--foreground)', opacity: 0.7, minWidth: '150px' }}>Joined</th>
                                 </tr>
                             </thead>
                             <tbody>
