@@ -39,12 +39,22 @@ export async function POST(request: Request) {
         return NextResponse.json(recipient)
     } catch (error: any) {
         console.error('Error creating recipient:', error)
+        console.error('Error details:', {
+            message: error.message,
+            code: error.code,
+            meta: error.meta,
+            name: error.name
+        })
 
         // Check for unique constraint violation (duplicate email)
         if (error.code === 'P2002') {
             return NextResponse.json({ error: 'A recipient with this email already exists' }, { status: 400 })
         }
 
-        return NextResponse.json({ error: 'Error creating recipient' }, { status: 500 })
+        // Return more specific error message for debugging
+        const errorMessage = error.message || 'Error creating recipient'
+        return NextResponse.json({
+            error: `Error creating recipient: ${errorMessage}`
+        }, { status: 500 })
     }
 }
