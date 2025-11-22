@@ -69,7 +69,31 @@ export async function POST(request: Request) {
             data: {
                 status: 'OCCUPIED',
                 currentPin: pin,
-                pickupLink
+            }
+        })
+
+        // Send Email
+        // Determine Base URL
+        let baseUrl = process.env.NEXTAUTH_URL
+
+        // Fallback if NEXTAUTH_URL is missing or invalid
+        if (!baseUrl || baseUrl === 'undefined') {
+            try {
+                const url = new URL(request.url)
+                baseUrl = url.origin
+            } catch (e) {
+                console.error('Error parsing request URL:', e)
+                baseUrl = 'https://vercel.com'
+            }
+        }
+
+        const pickupLink = `${baseUrl}/pickup/${pkg.id}`
+        await sendNotification(
+            pkg.resident.email,
+            pkg.resident.name,
+            pkg.locker.lockerNumber,
+            pin,
+            pickupLink
         )
 
         return NextResponse.json(pkg)
