@@ -53,7 +53,7 @@ export default function PickupPage() {
         <div className="container" style={{ padding: '2rem 1rem', minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
             <div className="glass-card" style={{ width: '100%', maxWidth: '500px', textAlign: 'center' }}>
                 <h1 style={{ marginBottom: '0.5rem' }}>Package Pickup</h1>
-                <p style={{ color: '#666', marginBottom: '2rem' }}>Hello, {pkg.resident.name}</p>
+                <p style={{ color: '#666', marginBottom: '2rem' }}>Hello, {pkg.recipient.name}</p>
 
                 {pkg.status === 'PENDING' ? (
                     <>
