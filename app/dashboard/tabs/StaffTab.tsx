@@ -118,7 +118,7 @@ export default function StaffTab() {
             </div>
 
             {/* Staff List */}
-            <div>
+            <div style={{ minWidth: 0 }}>
                 <h2 className="text-xl font-bold mb-4">Staff Directory</h2>
 
                 {/* Mobile slide hint */}

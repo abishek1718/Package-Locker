@@ -141,7 +141,7 @@ export default function RecipientsTab() {
             </div>
 
             {/* Recipients List */}
-            <div style={{ marginTop: '2rem' }}>
+            <div style={{ marginTop: '2rem', minWidth: 0 }}>
                 <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-6">
                     <h2 className="text-xl font-bold" style={{ whiteSpace: 'nowrap' }}>Recipient Directory</h2>
                     <input
