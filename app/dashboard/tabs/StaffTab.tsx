@@ -127,7 +127,7 @@ export default function StaffTab() {
                 </div>
 
                 <div className="glass-card overflow-hidden">
-                    <div className="overflow-x-auto">
+                    <div style={{ overflowX: 'auto', maxWidth: '100%', WebkitOverflowScrolling: 'touch' }}>
                         <div style={{ minWidth: '900px' }}>
                             <table className="w-full" style={{ borderCollapse: 'separate', borderSpacing: 0 }}>
                                 <thead>
